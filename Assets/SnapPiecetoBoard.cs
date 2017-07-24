@@ -1,6 +1,4 @@
 ﻿using Leap.Unity.Interaction;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SnapPiecetoBoard : MonoBehaviour {
@@ -12,8 +10,8 @@ public class SnapPiecetoBoard : MonoBehaviour {
 
     private InteractionBehaviour intObj;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         intObj = GetComponent<InteractionBehaviour>();
         intObj.OnGraspEnd += SnaptoSquare;
     }
