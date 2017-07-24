@@ -57,12 +57,13 @@ namespace CheckersBoard
 
         private static List<Move> CheckForMoves(Piece piece, CheckerBoard currentBoard, string color)
         {
-            int rowUp, theirColor, theirKing, myKing;
+            int rowUp, theirColor, theirKing, myColor, myKing;
             if (color == "Red")
             {
                 rowUp = -1;
                 theirColor = 2;
                 theirKing = 4;
+                myColor = 1;
                 myKing = 3;
             }
             else
@@ -70,6 +71,7 @@ namespace CheckersBoard
                 rowUp = 1;
                 theirColor = 1;
                 theirKing = 3;
+                myColor = 2;
                 myKing = 4;
             }
 
@@ -105,17 +107,17 @@ namespace CheckersBoard
                 if (currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == 0)
                     moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column + 1)));
             }
-            else if (currentBoard.GetState(piece.Row, piece.Column) == 1)
+            else if (currentBoard.GetState(piece.Row, piece.Column) == myColor)
             {
                 if ((currentBoard.GetState(piece.Row - rowUp, piece.Column - 1) == theirColor) || (currentBoard.GetState(piece.Row - rowUp, piece.Column - 1) == theirKing))
                 {
                     if (currentBoard.GetState(piece.Row - 2 * rowUp, piece.Column - 2) == 0)
                         moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 3 * rowUp, piece.Column - 2)));
                 }
-                if ((currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == 2) || (currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == theirKing))
+                if ((currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == theirColor) || (currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == theirKing))
                 {
                     if (currentBoard.GetState(piece.Row - 2 * rowUp, piece.Column + 2) == 0)
-                        moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row + 3, piece.Column + 2)));
+                        moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 3 * rowUp, piece.Column + 2)));
                 }
                 if (currentBoard.GetState(piece.Row - rowUp, piece.Column - 1) == 0)
                     moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column - 1)));

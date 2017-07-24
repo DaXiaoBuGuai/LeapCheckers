@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CheckersBoard
 {
-    struct Button
+    class Button
     {
         public string Name;
         public int Row;
@@ -14,13 +14,14 @@ namespace CheckersBoard
     /// <summary>
     /// CheckersManager, descendent of MainWindow.xaml
     /// </summary>
-    public class CheckersManager
+    public class CheckersManager : MonoBehaviour
     {
         private Move currentMove;
         private String winner;
         private String turn;
         private String Title;
         private Button[,] CheckersGrid;
+        private double timeLeft = 0.5;
 
         public CheckersManager()
         {
@@ -28,13 +29,13 @@ namespace CheckersBoard
             currentMove = null;
             winner = null;
             turn = "Black";
-            MakeBoard();
             CheckersGrid = new Button[9,8];
+            MakeBoard();
         }
 
         private void ClearBoard()
         {
-            for (int r = 1; r < 9; r++)
+            for (int r = 0; r < 9; r++)
             {
                 for (int c = 0; c < 8; c++)
                 {
@@ -46,16 +47,16 @@ namespace CheckersBoard
 
         private void MakeBoard()
         {
-            for (int r = 1; r < 9; r++)
+            for (int r = 0; r < 9; r++)
             {
                 for (int c = 0; c < 8; c++)
                 {
+                    CheckersGrid[r, c] = new Button();
                     CheckersGrid[r,c].Row = r;
                     CheckersGrid[r,c].Column = c;
                     CheckersGrid[r,c].Name = "none";
                 }
             }
-
             MakeButtons();
         }
 
@@ -148,13 +149,9 @@ namespace CheckersBoard
                 if (CheckMove())
                 {
                     MakeMove();
-                    turn = "Red";
                     aiMakeMove();
-                    turn = "Black";
                     playerMakeMove();
-                    turn = "Red";
                     aiMakeMove();
-                    turn = "Black";
                 }
             }
         }
@@ -352,6 +349,18 @@ namespace CheckersBoard
             }
         }
 
+        void Update()
+        {
+	        timeLeft -= Time.deltaTime;
+	        if (timeLeft > 0.0)
+                return;
+            timeLeft = 0.5;
+            playerMakeMove();
+            turn = "Red";
+            aiMakeMove();
+            turn = "Black";
+        }
+
         private void aiMakeMove()
         {
             currentMove = CheckersAI.GetMove(GetCurrentBoard(), "Red");
@@ -359,6 +368,11 @@ namespace CheckersBoard
             {
                 if (CheckMove())
                 {
+                    int row = currentMove.piece2.Row;
+                    int col = currentMove.piece2.Column;
+                    GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    cube.transform.position = new Vector3(row * 0.2f, 0.4f, col * 0.2f);
+                    cube.transform.localScale = new Vector3(0.10f, 0.30f, 0.10f);
                     MakeMove();
                 }
             }
@@ -371,6 +385,11 @@ namespace CheckersBoard
             {
                 if (CheckMove())
                 {
+                    int row = currentMove.piece2.Row;
+                    int col = currentMove.piece2.Column;
+		            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		            cube.transform.position = new Vector3(row * 0.2f, 0.4f, col * 0.2f);
+                    cube.transform.localScale = new Vector3 (0.10f, 0.30f, 0.10f);
                     MakeMove();
                 }
             }
@@ -384,7 +403,6 @@ namespace CheckersBoard
                 for (int c = 0; c < 8; c++)
                 {
                     Button button = GetGridElement(CheckersGrid, r, c);
-
                     {
                         if (button.Name.Contains("Red"))
                         {
@@ -402,7 +420,6 @@ namespace CheckersBoard
                         }
                         else
                             board.SetState(r - 1, c, 0);
-
                     }
                 }
             }
