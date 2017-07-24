@@ -10,6 +10,7 @@ public class SnapPiecetoBoard : MonoBehaviour {
     private float boardPosY = 0.0f; // TODO link somehow
     private float checkerHeight = 0.01f;
     private float grid_scale = (0.5f/8);
+    private int row = -1, column = -1;
 
     private InteractionBehaviour intObj;
 
@@ -21,11 +22,11 @@ public class SnapPiecetoBoard : MonoBehaviour {
         }
 
         gameBoard = FindObjectOfType<GameBoard>();
+        SnaptoSquare();
     }
 
     // Update is called once per frame
     void Update () {
-        
     }
 
     // Snap checker piece to nearest square
@@ -55,9 +56,44 @@ public class SnapPiecetoBoard : MonoBehaviour {
 
         Vector3 snappedPosition;
 
-        snappedPosition = new Vector3(Mathf.Round((posRelativeToBoard.x - halfGrid)/ grid_scale)*grid_scale + grid_scale/2f,
+        int new_row = Mathf.RoundToInt((posRelativeToBoard.x - halfGrid) / grid_scale);
+        int new_column = Mathf.RoundToInt((posRelativeToBoard.z - halfGrid) / grid_scale);
+        CheckersBoard.CheckersManager manager = FindObjectOfType<CheckersBoard.CheckersManager>();
+        if (row != -1) {
+            Debug.Log("checking: new_row = " + row + ", new_column = " + column);
+            manager.SetMove(row, column, new_row, new_column);
+            if (!manager.CheckMove())
+            {
+                Debug.Log("checkmove failed, snapping back");
+                transform.position = new Vector3(row * grid_scale + halfGrid,
+                    boardPosY + checkerHeight * 0.7f,
+                    column * grid_scale + halfGrid);
+                transform.rotation = Quaternion.identity;
+                // ignore new_row, new_column
+                return;
+            }
+            else
+            {
+                Debug.Log("checkmove succeeded");
+            }
+        }
+
+        if (row != -1) {
+            Debug.Log("calling MakeMove()");
+            manager.MakeMove();
+        }
+
+        if (row == -1)
+        {
+            Debug.Log("initialization: row = " + new_row + " column = " + new_column);
+        }
+
+        row = new_row;
+        column = new_column;
+
+        snappedPosition = new Vector3(Mathf.Round((posRelativeToBoard.x - halfGrid)/ grid_scale)*grid_scale + halfGrid,
                                       boardPosY + checkerHeight*.7f,
-                                      Mathf.Round((posRelativeToBoard.z - halfGrid) / grid_scale) *grid_scale + grid_scale/2f);
+                                      Mathf.Round((posRelativeToBoard.z - halfGrid) / grid_scale) *grid_scale + halfGrid);
         snappedPosition += gameBoard.transform.position;
 
         transform.position = snappedPosition;

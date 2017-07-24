@@ -129,34 +129,14 @@ namespace CheckersBoard
             return g[r,c];
         }
 
-        void button_Click(Button button)
+        public void SetMove(int start_row, int start_column, int end_row, int end_column)
         {
-            int row = button.Row;
-            int col = button.Column;
-            Debug.Log("Row: " + row + " Column: " + col);
-            if (currentMove == null)
-                currentMove = new Move();
-            if (currentMove.piece1 == null)
-            {
-                currentMove.piece1 = new Piece(row, col);
-            }
-            else
-            {
-                currentMove.piece2 = new Piece(row, col);
-            }
-            if ((currentMove.piece1 != null) && (currentMove.piece2 != null))
-            {
-                if (CheckMove())
-                {
-                    MakeMove();
-                    aiMakeMove();
-                    playerMakeMove();
-                    aiMakeMove();
-                }
-            }
+            currentMove = new CheckersBoard.Move();
+            currentMove.piece1 = new CheckersBoard.Piece(start_row, start_column);
+            currentMove.piece2 = new CheckersBoard.Piece(end_row, end_column);
         }
 
-        private Boolean CheckMove()
+        public Boolean CheckMove()
         {
             Button button1 = GetGridElement(CheckersGrid, currentMove.piece1.Row, currentMove.piece1.Column);
             Button button2 = GetGridElement(CheckersGrid, currentMove.piece2.Row, currentMove.piece2.Column);
@@ -320,7 +300,7 @@ namespace CheckersBoard
             return false;
        }
 
-        private void MakeMove()
+        public void MakeMove()
         {
             if ((currentMove.piece1 != null) && (currentMove.piece2 != null))
             {
@@ -351,14 +331,6 @@ namespace CheckersBoard
 
         void Update()
         {
-	        timeLeft -= Time.deltaTime;
-	        if (timeLeft > 0.0)
-                return;
-            timeLeft = 0.5;
-            playerMakeMove();
-            turn = "Red";
-            aiMakeMove();
-            turn = "Black";
         }
 
         private void aiMakeMove()
@@ -368,11 +340,6 @@ namespace CheckersBoard
             {
                 if (CheckMove())
                 {
-                    int row = currentMove.piece2.Row;
-                    int col = currentMove.piece2.Column;
-                    GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    cube.transform.position = new Vector3(row * 0.2f, 0.4f, col * 0.2f);
-                    cube.transform.localScale = new Vector3(0.10f, 0.30f, 0.10f);
                     MakeMove();
                 }
             }
@@ -385,11 +352,6 @@ namespace CheckersBoard
             {
                 if (CheckMove())
                 {
-                    int row = currentMove.piece2.Row;
-                    int col = currentMove.piece2.Column;
-		            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		            cube.transform.position = new Vector3(row * 0.2f, 0.4f, col * 0.2f);
-                    cube.transform.localScale = new Vector3 (0.10f, 0.30f, 0.10f);
                     MakeMove();
                 }
             }
@@ -398,8 +360,10 @@ namespace CheckersBoard
         private CheckerBoard GetCurrentBoard()
         {
             CheckerBoard board = new CheckerBoard();
+            Debug.Log("GetCurrentBoard()");
             for (int r = 1; r < 9; r++)
             {
+                string str = "";
                 for (int c = 0; c < 8; c++)
                 {
                     Button button = GetGridElement(CheckersGrid, r, c);
@@ -421,7 +385,9 @@ namespace CheckersBoard
                         else
                             board.SetState(r - 1, c, 0);
                     }
+                    str += board.GetState(r - 1, c);
                 }
+                Debug.Log(str);
             }
             return board;
         }
