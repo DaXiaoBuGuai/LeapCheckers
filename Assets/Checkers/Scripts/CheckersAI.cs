@@ -21,17 +21,17 @@ namespace CheckersBoard
             List<Piece> currentPieces = new List<Piece>();
             List<Move> avaliableMoves = new List<Move>();
             List<Move> jumpMoves = currentBoard.checkJumps(color);
-			int myColor, myKing;
-			if (color == "Red")
-			{
-				myColor = 1;
-				myKing = 3;
-			}
-			else
-			{
-				myColor = 2;
-				myKing = 4;
-			}
+            int myColor, myKing;
+            if (color == "Red")
+            {
+                myColor = 1;
+                myKing = 3;
+            }
+            else
+            {
+                myColor = 2;
+                myKing = 4;
+            }
 
 
             if (jumpMoves.Count > 0)
@@ -57,21 +57,21 @@ namespace CheckersBoard
 
         private static List<Move> CheckForMoves(Piece piece, CheckerBoard currentBoard, string color)
         {
-			int rowUp, theirColor, theirKing, myKing;
-			if (color == "Red")
-			{
-				rowUp = -1;
-				theirColor = 2;
-				theirKing = 4;
-				myKing = 3;
-			}
-			else
-			{
-				rowUp = 1;
-				theirColor = 1;
-				theirKing = 3;
-				myKing = 4;
-			}
+            int rowUp, theirColor, theirKing, myKing;
+            if (color == "Red")
+            {
+                rowUp = -1;
+                theirColor = 2;
+                theirKing = 4;
+                myKing = 3;
+            }
+            else
+            {
+                rowUp = 1;
+                theirColor = 1;
+                theirKing = 3;
+                myKing = 4;
+            }
 
             List<Move> moves = new List<Move>();
             if (currentBoard.GetState(piece.Row, piece.Column) == myKing)
