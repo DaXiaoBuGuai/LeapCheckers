@@ -56,18 +56,18 @@ public class SnapPiecetoBoard : MonoBehaviour {
 
         Vector3 snappedPosition;
 
-        int new_row = Mathf.RoundToInt((posRelativeToBoard.x - halfGrid) / grid_scale);
-        int new_column = Mathf.RoundToInt((posRelativeToBoard.z - halfGrid) / grid_scale);
+        int new_row = 7 - Mathf.RoundToInt((posRelativeToBoard.z - halfGrid) / grid_scale);
+        int new_column = Mathf.RoundToInt((posRelativeToBoard.x - halfGrid) / grid_scale);
         CheckersBoard.CheckersManager manager = FindObjectOfType<CheckersBoard.CheckersManager>();
         if (row != -1) {
-            Debug.Log("checking: new_row = " + row + ", new_column = " + column);
+            Debug.Log("checking: new_row = " + new_row + ", new_column = " + new_column);
             manager.SetMove(row, column, new_row, new_column);
-            if (!manager.CheckMove())
+            if (new_row < 0 || new_column < 0 || new_row > 7 || new_column > 7 || !manager.CheckMove())
             {
                 Debug.Log("checkmove failed, snapping back");
-                transform.position = new Vector3(row * grid_scale + halfGrid,
+                transform.position = gameBoard.transform.position + new Vector3(column * grid_scale + halfGrid,
                     boardPosY + checkerHeight * 0.7f,
-                    column * grid_scale + halfGrid);
+                    (7 - row) * grid_scale + halfGrid);
                 transform.rotation = Quaternion.identity;
                 // ignore new_row, new_column
                 return;

@@ -35,7 +35,7 @@ namespace CheckersBoard
 
         private void ClearBoard()
         {
-            for (int r = 0; r < 9; r++)
+            for (int r = 1; r < 9; r++)
             {
                 for (int c = 0; c < 8; c++)
                 {
@@ -47,7 +47,7 @@ namespace CheckersBoard
 
         private void MakeBoard()
         {
-            for (int r = 0; r < 9; r++)
+            for (int r = 1; r < 9; r++)
             {
                 for (int c = 0; c < 8; c++)
                 {
@@ -122,6 +122,7 @@ namespace CheckersBoard
                     }
                 }
             }
+            CheckerBoard currentBoard = GetCurrentBoard();
         }
 
         Button GetGridElement(Button[,] g, int r, int c)
