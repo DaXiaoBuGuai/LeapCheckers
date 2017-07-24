@@ -13,7 +13,8 @@ public class SnapPiecetoBoard : MonoBehaviour {
     // Use this for initialization
     void Start () {
         intObj = GetComponent<InteractionBehaviour>();
-        intObj.OnGraspEnd += SnaptoSquare;
+        if (intObj != null)
+            intObj.OnGraspEnd += SnaptoSquare;
     }
 
     // Update is called once per frame
