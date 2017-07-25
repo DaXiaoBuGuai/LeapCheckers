@@ -470,6 +470,13 @@ namespace CheckersBoard
             // This means block out this section as the piece is removed
             Button button = GetGridElement(CheckersGrid, middleMove.Row, middleMove.Column);
             button.Name = "none" + middleMove.Row + middleMove.Column;
+            GameObject jumped = FindCylinder(middleMove.Row, middleMove.Column);
+            if (jumped)
+            {
+                Rigidbody rb = jumped.GetComponent<Rigidbody>();
+                rb.isKinematic = false;
+                rb.AddForce(UnityEngine.Random.Range(0.0f, 0.2f), 0.3f, 0.0f);
+            }
         }
 
         private void checkWin()
