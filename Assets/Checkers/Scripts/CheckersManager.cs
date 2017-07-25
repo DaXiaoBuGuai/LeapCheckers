@@ -22,6 +22,10 @@ namespace CheckersBoard
         private String Title;
         private Button[,] CheckersGrid;
         private double timeLeft = 0.5;
+        private const float boardPosY = 0.0f;
+        private const float checkerHeight = 0.01f;
+        private const float grid_scale = (0.5f / 8);
+        private const float halfGrid = grid_scale / 2f;
 
         public CheckersManager()
         {
@@ -303,32 +307,40 @@ namespace CheckersBoard
             return false;
         }
 
-        public void PhysicalMove(int row, int column, int target_row, int target_column) {
-            float boardPosY = 0.0f;
-            float checkerHeight = 0.01f;
-            float grid_scale = (0.5f/8);
-            float halfGrid = grid_scale / 2f;
+        public GameObject FindCylinder(int row, int column)
+        {
             GameBoard gameBoard = FindObjectOfType<GameBoard>();
 
             Vector3 source_pos = gameBoard.transform.position +
-              new Vector3(column * grid_scale + halfGrid, boardPosY + checkerHeight * 0.7f,
-                  (7 - row) * grid_scale + halfGrid);
+                new Vector3(column * grid_scale + halfGrid,
+                            boardPosY + checkerHeight * 0.7f,
+                            (7 - row) * grid_scale + halfGrid);
             object[] obj = GameObject.FindObjectsOfType(typeof(GameObject));
             float dist = 0.0f;
             GameObject checker = null;
-            foreach (object o in obj) {
-                GameObject g = (GameObject) o;
+            foreach (object o in obj)
+            {
+                GameObject g = (GameObject)o;
                 if (g.name.Length < 9)
                     continue;
                 string substr = g.name.Substring(0, 9);
-                if (substr == "Checker_R" || substr == "Checker_B") {
+                if (substr == "Checker_R" || substr == "Checker_B")
+                {
                     float test_dist = Vector3.Distance(source_pos, g.transform.position);
-                    if (checker == null || test_dist < dist) {
+                    if (checker == null || test_dist < dist)
+                    {
                         checker = g;
                         dist = test_dist;
                     }
                 }
             }
+            return checker;
+        }
+
+        public void PhysicalMove(int row, int column, int target_row, int target_column) {
+            GameObject checker = FindCylinder(row, column);
+            GameBoard gameBoard = FindObjectOfType<GameBoard>();
+
             if (checker != null) {
                 Debug.Log("moving the checker piece for the AI");
                 checker.transform.position = gameBoard.transform.position +
