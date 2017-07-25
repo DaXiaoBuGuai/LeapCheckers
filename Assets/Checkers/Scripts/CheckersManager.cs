@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Leap.Unity.Interaction;
 
 namespace CheckersBoard
 {
@@ -476,6 +477,8 @@ namespace CheckersBoard
                 Rigidbody rb = jumped.GetComponent<Rigidbody>();
                 rb.isKinematic = false;
                 rb.AddForce(UnityEngine.Random.Range(0.0f, 0.2f), 0.3f, 0.0f);
+                InteractionBehaviour ib = jumped.GetComponent<InteractionBehaviour>();
+                ib.enabled = false;
             }
         }
 
