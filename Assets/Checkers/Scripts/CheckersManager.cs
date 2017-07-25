@@ -19,12 +19,10 @@ namespace CheckersBoard
     {
         private Move currentMove;
         private String winner;
-        private String turn;
         private String Title;
         private Button[,] CheckersGrid;
-        private bool doubleAI = false;
+        public String turn;
 
-        private double timeLeft = 1.0f;
         private const float boardPosY = 0.0f;
         private const float checkerHeight = 0.01f;
         private const float grid_scale = (0.5f / 8);
@@ -387,19 +385,6 @@ namespace CheckersBoard
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                doubleAI = !doubleAI;
-            }
-            if (doubleAI)
-            {
-                timeLeft -= Time.deltaTime;
-                if (turn == "Black")
-                {
-                    playerMakeMove();
-                    timeLeft = 1.5;
-                }
-            }
         }
 
         public void aiMakeMove()
@@ -414,7 +399,7 @@ namespace CheckersBoard
             }
         }
 
-        private void playerMakeMove()
+        public void playerMakeMove()
         {
             currentMove = CheckersAI.GetMove(GetCurrentBoard(), "Black");
             if (currentMove != null)

@@ -12,6 +12,7 @@ public class SnapPiecetoBoard : MonoBehaviour {
     private float grid_scale = (0.5f/8);
     private int row = -1, column = -1;
     private float timeLeft = 0.0f;
+    private bool doubleAI = false;
 
     private InteractionBehaviour intObj;
 
@@ -28,14 +29,33 @@ public class SnapPiecetoBoard : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        CheckersBoard.CheckersManager manager = FindObjectOfType<CheckersBoard.CheckersManager>();
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            doubleAI = !doubleAI;
+            if (manager.turn == "Black")
+            {
+                timeLeft = (doubleAI ? 1.0f : 0.0f);
+            }
+        }
+
         if (timeLeft > 0.0f)
         {
             timeLeft -= Time.deltaTime;
             if (timeLeft < 0.0f)
             {
-                CheckersBoard.CheckersManager manager = FindObjectOfType<CheckersBoard.CheckersManager>();
-                Debug.Log("calling manager.aiMakeMove()");
-                manager.aiMakeMove();
+                if (doubleAI && manager.turn == "Black")
+                {
+                    Debug.Log("calling manager.playerMakeMove() for double-AI");
+                    manager.playerMakeMove();
+                }
+                else if (manager.turn == "Red")
+                {
+                    Debug.Log("calling manager.aiMakeMove()");
+                    manager.aiMakeMove();
+                }
+                if (doubleAI)
+                    timeLeft = 1.0f;
             }
         }
     }
