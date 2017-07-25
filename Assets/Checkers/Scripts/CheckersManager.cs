@@ -301,9 +301,43 @@ namespace CheckersBoard
             currentMove = null;
             Debug.Log("Invalid Move. Try Again.");
             return false;
-       }
+        }
 
-        public void MakeMove()
+        public void PhysicalMove(int row, int column, int target_row, int target_column) {
+            float boardPosY = 0.0f;
+            float checkerHeight = 0.01f;
+            float grid_scale = (0.5f/8);
+            float halfGrid = grid_scale / 2f;
+            GameBoard gameBoard = FindObjectOfType<GameBoard>();
+
+            Vector3 source_pos = gameBoard.transform.position +
+              new Vector3(column * grid_scale + halfGrid, boardPosY + checkerHeight * 0.7f,
+                  (7 - row) * grid_scale + halfGrid);
+            object[] obj = GameObject.FindObjectsOfType(typeof(GameObject));
+            float dist = 0.0f;
+            GameObject checker = null;
+            foreach (object o in obj) {
+                GameObject g = (GameObject) o;
+                if (g.name.Length < 9)
+                    continue;
+                string substr = g.name.Substring(0, 9);
+                if (substr == "Checker_R" || substr == "Checker_B") {
+                    float test_dist = Vector3.Distance(source_pos, g.transform.position);
+                    if (checker == null || test_dist < dist) {
+                        checker = g;
+                        dist = test_dist;
+                    }
+                }
+            }
+            if (checker != null) {
+                Debug.Log("moving the checker piece for the AI");
+                checker.transform.position = gameBoard.transform.position +
+                  new Vector3(target_column * grid_scale + halfGrid, boardPosY + checkerHeight * 0.7f,
+                      (7 - target_row) * grid_scale + halfGrid);
+            }
+        }
+
+        public void MakeMove(bool moveCylinder = false)
         {
             if ((currentMove.piece1 != null) && (currentMove.piece2 != null))
             {
@@ -315,7 +349,9 @@ namespace CheckersBoard
                 //string temp2 = button2.Name;
                 button1.Name = "none";
                 button2.Name = temp1;
-
+                if (moveCylinder) {
+                    PhysicalMove(currentMove.piece1.Row, currentMove.piece1.Column, currentMove.piece2.Row, currentMove.piece2.Column);
+                }
                 checkKing(currentMove.piece2);
                 currentMove = null;
                 if (turn == "Black")
@@ -336,14 +372,14 @@ namespace CheckersBoard
         {
         }
 
-        private void aiMakeMove()
+        public void aiMakeMove()
         {
             currentMove = CheckersAI.GetMove(GetCurrentBoard(), "Red");
             if (currentMove != null)
             {
                 if (CheckMove())
                 {
-                    MakeMove();
+                    MakeMove(true);
                 }
             }
         }

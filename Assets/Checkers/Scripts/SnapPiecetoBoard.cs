@@ -99,6 +99,10 @@ public class SnapPiecetoBoard : MonoBehaviour {
         transform.position = snappedPosition;
 
         transform.rotation = Quaternion.identity;
+        if (row != -1) {
+            Debug.Log("calling manager.aiMakeMove()");
+            manager.aiMakeMove();
+        }
     }
 
     // TODO - add a check for whether square is open
