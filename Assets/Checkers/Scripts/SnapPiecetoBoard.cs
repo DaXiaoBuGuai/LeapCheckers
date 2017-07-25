@@ -12,7 +12,7 @@ public class SnapPiecetoBoard : MonoBehaviour {
     private float grid_scale = (0.5f/8);
     private int row = -1, column = -1;
     private float timeLeft = 0.0f;
-    private bool doubleAI = false;
+    private bool assistMode = false;
 
     private InteractionBehaviour intObj;
 
@@ -32,10 +32,10 @@ public class SnapPiecetoBoard : MonoBehaviour {
         CheckersBoard.CheckersManager manager = FindObjectOfType<CheckersBoard.CheckersManager>();
         if (Input.GetKeyDown(KeyCode.A))
         {
-            doubleAI = !doubleAI;
+            assistMode = !assistMode;
             if (manager.turn == "Black")
             {
-                timeLeft = (doubleAI ? 1.0f : 0.0f);
+                timeLeft = (assistMode ? 1.0f : 0.0f);
             }
         }
 
@@ -44,7 +44,7 @@ public class SnapPiecetoBoard : MonoBehaviour {
             timeLeft -= Time.deltaTime;
             if (timeLeft < 0.0f)
             {
-                if (doubleAI && manager.turn == "Black")
+                if (assistMode && manager.turn == "Black")
                 {
                     Debug.Log("calling manager.playerMakeMove() for double-AI");
                     manager.playerMakeMove();
@@ -54,7 +54,7 @@ public class SnapPiecetoBoard : MonoBehaviour {
                     Debug.Log("calling manager.aiMakeMove()");
                     manager.aiMakeMove();
                 }
-                if (doubleAI)
+                if (assistMode)
                     timeLeft = 1.0f;
             }
         }
