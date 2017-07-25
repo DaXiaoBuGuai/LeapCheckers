@@ -11,6 +11,7 @@ public class SnapPiecetoBoard : MonoBehaviour {
     private float checkerHeight = 0.01f;
     private float grid_scale = (0.5f/8);
     private int row = -1, column = -1;
+    private float timeLeft = 0.0f;
 
     private InteractionBehaviour intObj;
 
@@ -27,6 +28,16 @@ public class SnapPiecetoBoard : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (timeLeft > 0.0f)
+        {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft < 0.0f)
+            {
+                CheckersBoard.CheckersManager manager = FindObjectOfType<CheckersBoard.CheckersManager>();
+                Debug.Log("calling manager.aiMakeMove()");
+                manager.aiMakeMove();
+            }
+        }
     }
 
     // Snap checker piece to nearest square
@@ -100,8 +111,8 @@ public class SnapPiecetoBoard : MonoBehaviour {
 
         transform.rotation = Quaternion.identity;
         if (row != -1) {
-            Debug.Log("calling manager.aiMakeMove()");
-            manager.aiMakeMove();
+            Debug.Log("calling manager.aiMakeMove() after 0.7 seconds");
+            timeLeft = 0.7f;
         }
     }
 
