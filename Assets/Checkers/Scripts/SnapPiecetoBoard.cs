@@ -40,6 +40,13 @@ public class SnapPiecetoBoard : MonoBehaviour {
         }
     }
 
+    public void SaveSnappedPosition()
+    {
+        // CheckersManager calls this after the AI moves a piece
+        row = column = -1;
+        SnaptoSquare();
+    }
+
     // Snap checker piece to nearest square
     void SnaptoSquare() {
 

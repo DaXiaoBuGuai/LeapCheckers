@@ -347,6 +347,8 @@ namespace CheckersBoard
                 checker.transform.position = gameBoard.transform.position +
                   new Vector3(target_column * grid_scale + halfGrid, boardPosY + checkerHeight * 0.7f,
                       (7 - target_row) * grid_scale + halfGrid);
+                SnapPiecetoBoard sptb_script = checker.GetComponent<SnapPiecetoBoard>();
+                sptb_script.SaveSnappedPosition();
             }
         }
 
