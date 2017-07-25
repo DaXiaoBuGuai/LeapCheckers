@@ -1,4 +1,4 @@
-﻿using Leap.Unity.Interaction;
+using Leap.Unity.Interaction;
 using UnityEngine;
 
 public class SnapPiecetoBoard : MonoBehaviour {
