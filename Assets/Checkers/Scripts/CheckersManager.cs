@@ -66,7 +66,7 @@ namespace CheckersBoard
             {
                 for (int c = 0; c < 8; c++)
                 {
-                    Button button = GetGridElement(CheckersGrid, r, c);
+                    Button button = GetGridElement(CheckersGrid, r-1, c);
                     switch (r)
                     {
                         case 1:
@@ -127,7 +127,8 @@ namespace CheckersBoard
 
         Button GetGridElement(Button[,] g, int r, int c)
         {
-            return g[r,c];
+            if (r == 8) r = 7;
+            return g[r+1,c];
         }
 
         public void SetMove(int start_row, int start_column, int end_row, int end_column)
@@ -174,6 +175,7 @@ namespace CheckersBoard
             {
                 currentMove.piece1 = null;
                 currentMove.piece2 = null;
+                Debug.Log("button1.name = " + button1.Name + " button2.name = " + button2.Name);
                 Debug.Log("False");
                 return false;
             }

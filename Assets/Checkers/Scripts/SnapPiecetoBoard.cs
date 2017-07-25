@@ -60,7 +60,7 @@ public class SnapPiecetoBoard : MonoBehaviour {
         int new_column = Mathf.RoundToInt((posRelativeToBoard.x - halfGrid) / grid_scale);
         CheckersBoard.CheckersManager manager = FindObjectOfType<CheckersBoard.CheckersManager>();
         if (row != -1) {
-            Debug.Log("checking: new_row = " + new_row + ", new_column = " + new_column);
+            Debug.Log("checking: old_row = " + row + ", old_column = " + column + ", new_row = " + new_row + ", new_column = " + new_column);
             manager.SetMove(row, column, new_row, new_column);
             if (new_row < 0 || new_column < 0 || new_row > 7 || new_column > 7 || !manager.CheckMove())
             {
