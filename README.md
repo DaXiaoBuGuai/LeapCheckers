@@ -2,7 +2,7 @@
 Play checkers on the astroid belt against an invisible AI!!
 
 Use your own two hands to pick up the pieces.
-<img src= "https://drive.google.com/file/d/0Byn5YpxIQMuFR241a0JoSkQxZWs">
+<img src= "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png">
 
 Hit 'A' for AI mode, where red and black AIs play against each other.
 
