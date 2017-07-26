@@ -1,5 +1,5 @@
 # LeapCheckers
-Play checkers on the astroid belt against an invisible AI!!
+Play checkers on the astroid belt against an invisible AI !
 
 Use your own two hands to pick up the pieces.
 <img src= "https://github.com/leapmotion/LeapCheckers/blob/master/LeapCheckersVideo.gif">
