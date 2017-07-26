@@ -125,6 +125,10 @@ public class SnapPiecetoBoard : MonoBehaviour {
         {
             Debug.Log("initialization: row = " + new_row + " column = " + new_column);
         }
+        else {
+            Debug.Log("calling manager.aiMakeMove() after 0.7 seconds");
+            timeLeft = 0.7f;
+        }
 
         row = new_row;
         column = new_column;
@@ -137,10 +141,6 @@ public class SnapPiecetoBoard : MonoBehaviour {
         transform.position = snappedPosition;
 
         transform.rotation = Quaternion.identity;
-        if (row != -1) {
-            Debug.Log("calling manager.aiMakeMove() after 0.7 seconds");
-            timeLeft = 0.7f;
-        }
     }
 
     // TODO - add a check for whether square is open
