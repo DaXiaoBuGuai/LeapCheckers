@@ -99,9 +99,9 @@ namespace CheckersBoard
                         moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column + 2)));
                 }
                 if (currentBoard.GetState(piece.Row + rowUp, piece.Column - 1) == 0)
-                    moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - rowUp, piece.Column - 1)));
+                    moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row + rowUp, piece.Column - 1)));
                 if (currentBoard.GetState(piece.Row + rowUp, piece.Column + 1) == 0)
-                    moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - rowUp, piece.Column + 1)));
+                    moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row + rowUp, piece.Column + 1)));
                 if (currentBoard.GetState(piece.Row - rowUp, piece.Column - 1) == 0)
                     moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - rowUp, piece.Column - 1)));
                 if (currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == 0)
