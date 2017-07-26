@@ -81,48 +81,48 @@ namespace CheckersBoard
                 if ((currentBoard.GetState(piece.Row + rowUp, piece.Column - 1) == theirColor) || (currentBoard.GetState(piece.Row + rowUp, piece.Column - 1) == theirKing))
                 {
                     if(currentBoard.GetState(piece.Row + 2 * rowUp, piece.Column - 2) == 0)
-                        moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row + rowUp, piece.Column - 2)));
+                        moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row + 2 * rowUp, piece.Column - 2)));
                 }
                 if ((currentBoard.GetState(piece.Row + rowUp, piece.Column + 1) == theirColor) || (currentBoard.GetState(piece.Row + rowUp, piece.Column + 1) == theirKing))
                 {
                     if (currentBoard.GetState(piece.Row + 2 * rowUp, piece.Column + 2) == 0)
-                        moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row + rowUp, piece.Column + 2)));
+                        moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row + 2 * rowUp, piece.Column + 2)));
                 }
                 if ((currentBoard.GetState(piece.Row - rowUp, piece.Column - 1) == theirColor) || (currentBoard.GetState(piece.Row - rowUp, piece.Column - 1) == theirKing))
                 {
                     if (currentBoard.GetState(piece.Row - 2 * rowUp, piece.Column - 2) == 0)
-                        moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 3 * rowUp, piece.Column - 2)));
+                        moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column - 2)));
                 }
                 if ((currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == theirColor) || (currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == theirKing))
                 {
                     if (currentBoard.GetState(piece.Row - 2 * rowUp, piece.Column + 2) == 0)
-                        moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 3 * rowUp, piece.Column + 2)));
+                        moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column + 2)));
                 }
                 if (currentBoard.GetState(piece.Row + rowUp, piece.Column - 1) == 0)
-                    moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row, piece.Column - 1)));
+                    moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - rowUp, piece.Column - 1)));
                 if (currentBoard.GetState(piece.Row + rowUp, piece.Column + 1) == 0)
-                    moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row, piece.Column + 1)));
+                    moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - rowUp, piece.Column + 1)));
                 if (currentBoard.GetState(piece.Row - rowUp, piece.Column - 1) == 0)
-                    moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column - 1)));
+                    moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - rowUp, piece.Column - 1)));
                 if (currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == 0)
-                    moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column + 1)));
+                    moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - rowUp, piece.Column + 1)));
             }
             else if (currentBoard.GetState(piece.Row, piece.Column) == myColor)
             {
                 if ((currentBoard.GetState(piece.Row - rowUp, piece.Column - 1) == theirColor) || (currentBoard.GetState(piece.Row - rowUp, piece.Column - 1) == theirKing))
                 {
                     if (currentBoard.GetState(piece.Row - 2 * rowUp, piece.Column - 2) == 0)
-                        moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 3 * rowUp, piece.Column - 2)));
+                        moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column - 2)));
                 }
                 if ((currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == theirColor) || (currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == theirKing))
                 {
                     if (currentBoard.GetState(piece.Row - 2 * rowUp, piece.Column + 2) == 0)
-                        moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 3 * rowUp, piece.Column + 2)));
+                        moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column + 2)));
                 }
                 if (currentBoard.GetState(piece.Row - rowUp, piece.Column - 1) == 0)
-                    moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column - 1)));
+                    moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - rowUp, piece.Column - 1)));
                 if (currentBoard.GetState(piece.Row - rowUp, piece.Column + 1) == 0)
-                    moves.Add(new Move(new Piece(piece.Row - rowUp, piece.Column), new Piece(piece.Row - 2 * rowUp, piece.Column + 1)));
+                    moves.Add(new Move(new Piece(piece.Row, piece.Column), new Piece(piece.Row - rowUp, piece.Column + 1)));
             }
             return moves;
         }

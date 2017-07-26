@@ -53,30 +53,30 @@ namespace CheckersBoard
                         {
                             if ((GetState(r - 2, c - 2) == 0) && ((GetState(r - 1, c - 1) == 2) || (GetState(r - 1, c - 1) == 4)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r - 1, c - 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r - 2, c - 2)));
                             }
                             if ((GetState(r - 2, c + 2) == 0) && ((GetState(r - 1, c + 1) == 2) || (GetState(r - 1, c + 1) == 4)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r - 1, c + 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r - 2, c + 2)));
                             }
                             if ((GetState(r + 2, c - 2) == 0) && ((GetState(r + 1, c - 1) == 2) || (GetState(r + 1, c - 1) == 4)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r + 3, c - 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r + 2, c - 2)));
                             }
                             if ((GetState(r + 2, c + 2) == 0) && ((GetState(r + 1, c + 1) == 2) || (GetState(r + 1, c + 1) == 4)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r + 3, c + 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r + 2, c + 2)));
                             }
                         }                       
                         if (GetState(r, c) == 1)
                         {
                             if ((GetState(r + 2, c - 2) == 0) && ((GetState(r + 1, c - 1) == 2) || (GetState(r + 1, c - 1) == 4)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r + 3, c - 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r + 2, c - 2)));
                             }
                             if ((GetState(r + 2, c + 2) == 0) && ((GetState(r + 1, c + 1) == 2) || (GetState(r + 1, c + 1) == 4)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r + 3, c + 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r + 2, c + 2)));
                             }
                         }
                     }
@@ -86,30 +86,30 @@ namespace CheckersBoard
                         {
                             if ((GetState(r - 2, c - 2) == 0) && ((GetState(r - 1, c - 1) == 1) || (GetState(r - 1, c - 1) == 3)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r - 1, c - 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r - 2, c - 2)));
                             }
                             if ((GetState(r - 2, c + 2) == 0) && ((GetState(r - 1, c + 1) == 1) || (GetState(r - 1, c + 1) == 3)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r - 1, c + 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r - 2, c + 2)));
                             }
                             if ((GetState(r + 2, c - 2) == 0) && ((GetState(r + 1, c - 1) == 1) || (GetState(r + 1, c - 1) == 3)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r + 3, c - 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r + 2, c - 2)));
                             }
                             if ((GetState(r + 2, c + 2) == 0) && ((GetState(r + 1, c + 1) == 1) || (GetState(r + 1, c + 1) == 3)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r + 3, c + 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r + 2, c + 2)));
                             }
                         }
                         if (GetState(r, c) == 2)
                         {
                             if ((GetState(r - 2, c - 2) == 0) && ((GetState(r - 1, c - 1) == 1) || (GetState(r - 1, c - 1) == 3)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r - 1, c - 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r - 2, c - 2)));
                             }
                             if ((GetState(r - 2, c + 2) == 0) && ((GetState(r - 1, c + 1) == 1) || (GetState(r - 1, c + 1) == 3)))
                             {
-                                jumps.Add(new Move(new Piece(r + 1, c), new Piece(r - 1, c + 2)));
+                                jumps.Add(new Move(new Piece(r, c), new Piece(r - 2, c + 2)));
                             }
                         }
                     }

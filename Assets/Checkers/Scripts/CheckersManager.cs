@@ -34,13 +34,13 @@ namespace CheckersBoard
             currentMove = null;
             winner = null;
             turn = "Black";
-            CheckersGrid = new Button[9,8];
+            CheckersGrid = new Button[8,8];
             MakeBoard();
         }
 
         private void ClearBoard()
         {
-            for (int r = 1; r < 9; r++)
+            for (int r = 0; r < 8; r++)
             {
                 for (int c = 0; c < 8; c++)
                 {
@@ -52,7 +52,7 @@ namespace CheckersBoard
 
         private void MakeBoard()
         {
-            for (int r = 1; r < 9; r++)
+            for (int r = 0; r < 8; r++)
             {
                 for (int c = 0; c < 8; c++)
                 {
@@ -67,56 +67,56 @@ namespace CheckersBoard
 
         private void MakeButtons()
         {
-            for (int r = 1; r < 9; r++)
+            for (int r = 0; r < 8; r++)
             {
                 for (int c = 0; c < 8; c++)
                 {
-                    Button button = GetGridElement(CheckersGrid, r-1, c);
+                    Button button = GetGridElement(CheckersGrid, r, c);
                     switch (r)
                     {
-                        case 1:
+                        case 0:
                             if (c % 2 == 1)
+                            {
+                                button.Name = "buttonRed" + r + c;
+                            }
+                            break;
+                        case 1:
+                            if (c % 2 == 0)
                             {
                                 button.Name = "buttonRed" + r + c;
                             }
                             break;
                         case 2:
-                            if (c % 2 == 0)
+                            if (c % 2 == 1)
                             {
                                 button.Name = "buttonRed" + r + c;
                             }
                             break;
                         case 3:
-                            if (c % 2 == 1)
+                            if (c % 2 == 0)
                             {
-                                button.Name = "buttonRed" + r + c;
+                                button.Name = "none" + r + c;
                             }
                             break;
                         case 4:
-                            if (c % 2 == 0)
+                            if (c % 2 == 1)
                             {
                                 button.Name = "none" + r + c;
                             }
                             break;
                         case 5:
-                            if (c % 2 == 1)
-                            {
-                                button.Name = "none" + r + c;
-                            }
-                            break;
-                        case 6:
                             if (c % 2 == 0)
                             {
                                 button.Name = "buttonBlack" + r + c;
                             }
                             break;
-                        case 7:
+                        case 6:
                             if (c % 2 == 1)
                             {
                                 button.Name = "buttonBlack" + r + c;
                             }
                             break;
-                        case 8:
+                        case 7:
                             if (c % 2 == 0)
                             {
                                 button.Name = "buttonBlack" + r + c;
@@ -132,8 +132,7 @@ namespace CheckersBoard
 
         Button GetGridElement(Button[,] g, int r, int c)
         {
-            if (r == 8) r = 7;
-            return g[r+1,c];
+            return g[r,c];
         }
 
         public void SetMove(int start_row, int start_column, int end_row, int end_column)
@@ -178,10 +177,12 @@ namespace CheckersBoard
             }
             else
             {
+                Debug.Log("button1.row = " + currentMove.piece1.Row + ", button1.col = " + currentMove.piece1.Column);
+                Debug.Log("button2.row = " + currentMove.piece2.Row + ", button2.col = " + currentMove.piece2.Column);
                 currentMove.piece1 = null;
                 currentMove.piece2 = null;
-                Debug.Log("button1.name = " + button1.Name + " button2.name = " + button2.Name);
                 Debug.Log("False");
+                Debug.Log("button1.name = " + button1.Name + " button2.name = " + button2.Name);
                 return false;
             }
         }
@@ -415,7 +416,7 @@ namespace CheckersBoard
         {
             CheckerBoard board = new CheckerBoard();
             Debug.Log("GetCurrentBoard()");
-            for (int r = 1; r < 9; r++)
+            for (int r = 0; r < 8; r++)
             {
                 string str = "";
                 for (int c = 0; c < 8; c++)
@@ -425,21 +426,21 @@ namespace CheckersBoard
                         if (button.Name.Contains("Red"))
                         {
                             if (button.Name.Contains("King"))
-                                board.SetState(r - 1, c, 3);
+                                board.SetState(r, c, 3);
                             else
-                                board.SetState(r - 1, c, 1);
+                                board.SetState(r, c, 1);
                         }
                         else if (button.Name.Contains("Black"))
                         {
                             if (button.Name.Contains("King"))
-                                board.SetState(r - 1, c, 4);
+                                board.SetState(r, c, 4);
                             else
-                                board.SetState(r - 1, c, 2);
+                                board.SetState(r, c, 2);
                         }
                         else
-                            board.SetState(r - 1, c, 0);
+                            board.SetState(r, c, 0);
                     }
-                    str += board.GetState(r - 1, c);
+                    str += board.GetState(r, c);
                 }
                 Debug.Log(str);
             }
@@ -453,14 +454,14 @@ namespace CheckersBoard
             {
                 if ((button.Name.Contains("Black")) && (!button.Name.Contains("King")))
                 {
-                    if (tmpPiece.Row == 1)
+                    if (tmpPiece.Row == 0)
                     {
                         button.Name = "button" + "Black" + "King" + tmpPiece.Row + tmpPiece.Column;
                     }
                 }
                 else if ((button.Name.Contains("Red")) && (!button.Name.Contains("King")))
                 {
-                    if (tmpPiece.Row == 8)
+                    if (tmpPiece.Row == 7)
                     {
                         button.Name = "button" + "Red" + "King" + tmpPiece.Row + tmpPiece.Column;
                     }
@@ -487,7 +488,7 @@ namespace CheckersBoard
         private void checkWin()
         {
             int totalBlack = 0, totalRed = 0;
-            for (int r = 1; r < 9; r++)
+            for (int r = 0; r < 8; r++)
             {
                 for (int c = 0; c < 8; c++)
                 {
@@ -507,7 +508,7 @@ namespace CheckersBoard
                 winner = "Black";
             if (winner != null)
             {
-                for (int r = 1; r < 9; r++)
+                for (int r = 0; r < 8; r++)
                 {
                     for (int c = 0; c < 8; c++)
                     {
